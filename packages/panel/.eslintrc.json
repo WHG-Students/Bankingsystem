@@ -1,0 +1,19 @@
+{
+  "extends": [
+    "../../.eslintrc.json",
+    "plugin:vue/essential",
+    "@vue/typescript/recommended",
+    "@vue/prettier",
+    "@vue/prettier/@typescript-eslint"
+  ],
+  "rules": {
+    "node/no-unsupported-features/es-syntax": "off"
+  },
+  "ignorePatterns": [
+    "**/*.json",
+    "**/*.js",
+    "node_modules",
+    "dist",
+    "**/*.d.ts"
+  ]
+}

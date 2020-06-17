@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  panel:
+    image: node:12
+    container_name: 'banksystem_panel'
+    command: yarn run serve:panel
+    ports:
+      - '8080:8080'
+    volumes:
+      - .:/srv/panel:rw
+    working_dir: /srv/panel
+    networks:
+      - banksystem
+    # depends_on:
+    #   - api
+  # api:
+  #   image: node:12
+  #   container_name: 'banksystem_api'
+  #   command: yarn run serve:api
+  #   ports:
+  #     - '3000:3000'
+  #   volumes:
+  #     - .:/srv/api:rw
+  #   working_dir: /srv/api
+  #   links:
+  #     - mysql
+  #   networks:
+  #     - banksystem
+
+networks:
+  banksystem:
+
+volumes:
+  mysql:
+    driver: local

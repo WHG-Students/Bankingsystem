@@ -1,0 +1,13 @@
+{
+  "name": "bankingsystem",
+  "private": true,
+  "scripts": {
+    "serve:panel": "lerna run serve --stream --scope=panel",
+    "serve:api": "lerna run serve --stream --scope=api",
+    "postinstall": "lerna bootstrap --hoist"
+  },
+  "devDependencies": {
+    "gts": "^2.0.2",
+    "lerna": "^3.22.0"
+  }
+}
