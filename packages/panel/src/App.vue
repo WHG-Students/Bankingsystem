@@ -9,4 +9,7 @@ import Vue from 'vue';
 export default Vue.extend({});
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap-vue/src/index.scss';
+</style>
