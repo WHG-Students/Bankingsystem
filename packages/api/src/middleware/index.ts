@@ -2,6 +2,12 @@ import {
   handleBodyRequestParsing,
   handleCompression,
   handleHelmet,
+  handleCors,
 } from './common';
 
-export = [handleBodyRequestParsing, handleCompression, handleHelmet];
+export = [
+  handleBodyRequestParsing,
+  handleCompression,
+  handleHelmet,
+  handleCors,
+];
