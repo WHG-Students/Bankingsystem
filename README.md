@@ -9,6 +9,7 @@
   <p style="text-indent:10px;">
   Functions:
   <br>  -shows income and expenses
+  <br>  -make deposits and withdrawals
   <br>  -allows to make transactions
   <br>  -shows incomming messages such as incomming money or warnings for negative balance
   </p>
@@ -22,6 +23,7 @@
   geschrieben in JavaScript.
   <br>Funktionen:
   <br>  -zeigt soll und haben
+  <br>  -Einzahlungen und Abhebungen tätigen
   <br>  -ermöglicht Transaktionen
   <br>  -Zeigt Nachrichten bei eingehenden transaktionen oder Warnungen bei negativem Kontostand
 </p>
