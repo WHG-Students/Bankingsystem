@@ -1,3 +1,4 @@
 import {Route} from '../helpers';
+import {authRoutes} from './auth';
 
-export = [] as Route[];
+export = [...authRoutes] as Route[];

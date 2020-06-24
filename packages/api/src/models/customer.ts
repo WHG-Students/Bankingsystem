@@ -3,7 +3,6 @@ import {sequelize} from '../lib/sequelize';
 
 export class Customer extends Model {
   public email!: string;
-  public name!: string;
   public firstName!: string;
   public lastName!: string;
   public age!: Date;
