@@ -6,10 +6,12 @@
 </h3>
 <p>
   written using JavaScript.
+  <blockquote>
   <br>Functions:
   <br>  -shows income and expenses
   <br>  -allows to make transactions
   <br>  -shows incomming messages such as incomming money or warnings for negative balance
+  </blockquote>
 </p>
 
 <h3>
