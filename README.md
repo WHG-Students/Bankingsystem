@@ -6,7 +6,6 @@
 </h3>
 <p>
   written using JavaScript.
-  <p style="text-indent:10px;">
   Functions:
   <br>  -shows income and expenses
   <br>  -make deposits and withdrawals
