@@ -1,31 +1,23 @@
-<h1>
-  <center>Banksystem</center>
-</h1>
-<h3>
-  <center>English: Grade 11 Group Project, simulates an online bank</center>
-</h3>
-<p>
-  written using JavaScript.
-  <br>Functions:
-  <br>  -shows income and expenses
-  <br>  -make deposits and withdrawals
-  <br>  -allows to make transactions
-  <br>  -shows incomming messages such as incomming money or warnings for negative balance
-</p>
+# Bankingsystem
 
-<h3>
-  <center>Deutsch: 11. Klasse Info-Gruppenarbeit, stellt eine Online-Bank da</center>
-</h3>
+### English: Grade 11 Group Project, simulates an online bank</center>
 
-<p>
-  geschrieben in JavaScript.
-  <br>Funktionen:
-  <br>  -zeigt soll und haben
-  <br>  -Einzahlungen und Abhebungen tätigen
-  <br>  -ermöglicht Transaktionen
-  <br>  -Zeigt Nachrichten bei eingehenden transaktionen oder Warnungen bei negativem Kontostand
-</p>
-<p>
-  <i>t.b.d</i>
-</p>
+#### Functions:
 
+- shows income and expenses
+- make deposits and withdrawals
+- allows to make transactions
+- notification for incoming transactions
+
+### Deutsch: 11. Klasse Info-Gruppenarbeit, stellt eine Online-Bank da
+
+#### Funktionen:
+
+- Konto verwalten
+- Einzahlungen und Abhebungen tätigen
+- ermöglicht Transaktionen
+- zeigt Benachrichtigungen für eingehende Transaktionen
+
+### Documentation
+
+For further documentation, please refer to our [wiki page](https://github.com/WHG-Students/Bankingsystem/wiki).
