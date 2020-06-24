@@ -23,3 +23,6 @@
   <br>  -ermöglicht Transaktionen
   <br>  -Zeigt Nachrichten bei eingehenden transaktionen oder Warnungen bei negativem Kontostand
 </p>
+<p>
+  <i>t.b.d</i>
+</p>
