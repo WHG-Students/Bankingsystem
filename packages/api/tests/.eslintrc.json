@@ -1,0 +1,8 @@
+{
+  "extends": "../.eslintrc.json",
+  "rules": {
+    "node/no-unpublished-import": "off",
+    "node/no-unpublished-require": "off",
+    "no-undef": "off"
+  }
+}
