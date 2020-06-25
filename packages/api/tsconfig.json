@@ -3,7 +3,8 @@
   "compilerOptions": {
     "rootDirs": ["src"],
     "outDir": "dist",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "types": ["jest"]
   },
   "include": ["src/**/*.ts", "test/**/*.ts"],
   "exclude": ["node_modules/**"]
