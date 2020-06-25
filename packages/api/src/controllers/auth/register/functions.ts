@@ -19,16 +19,10 @@ export const createPasswordHash = async (
   res: Response,
   next: NextFunction
 ) => {
-  // generating salt and saving to locals as temp
   try {
     // hardcoding this as we will never change it
-    res.locals.temp = await genSalt(10);
-  } catch (e) {
-    throw HTTPError(HTTPStatus.INTERNAL_SERVER_ERROR);
-  }
-
-  try {
-    res.locals.passwordHash = await hash(body.password, res.locals.temp);
+    const salt = await genSalt(10);
+    res.locals.passwordHash = await hash(body.password, salt);
   } catch (e) {
     throw HTTPError(HTTPStatus.INTERNAL_SERVER_ERROR);
   }
@@ -52,8 +46,7 @@ export const createUser = async (
       creditAccount: null,
     });
   } catch (e) {
-    logger.info('failed on create');
-    console.error(JSON.stringify(e));
+    logger.error(JSON.stringify(e));
     throw HTTPError(HTTPStatus.INTERNAL_SERVER_ERROR);
   }
 

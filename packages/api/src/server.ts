@@ -18,7 +18,8 @@ applyMiddleware(errorHandlers, router);
 
 const {PORT = 3000} = process.env;
 
-// ssl will be handled from reverse proxy
-http.createServer(router).listen(PORT, () => {
+export const server = http.createServer(router);
+
+server.listen(PORT, () => {
   logger.info(`Running server on http://localhost:${PORT}`);
 });
