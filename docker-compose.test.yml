@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: 'banksystem_mysql'
+    restart: always
+    env_file:
+      - .env
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    expose:
+      - '3306'
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql:/var/lib/mysql
+    networks:
+      - banksystem
+
+  api:
+    image: node:12
+    container_name: 'banksystem_api'
+    command: yarn run test:api
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/srv/api:rw
+    working_dir: /srv/api
+    links:
+      - mysql
+    depends_on:
+      - mysql
+    networks:
+      - banksystem
+
+networks:
+  banksystem:
+
+volumes:
+  mysql:
+    driver: local
