@@ -1,18 +1,18 @@
-import {Model, DataTypes} from 'sequelize';
+import {DataTypes, ModelCtor, Model} from 'sequelize';
 import {sequelize} from '../lib/sequelize';
 
-export class Customer extends Model {
-  public email!: string;
-  public firstName!: string;
-  public lastName!: string;
-  public age!: Date;
-  public address!: string;
-  public creditAccount!: number;
+type CustomerModel = {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  age: Date;
+  address: string;
+  creditAccount?: number | null;
+};
 
-  public readonly createdAt!: Date;
-}
-
-Customer.init(
+export const Customer: ModelCtor<Model<{}, CustomerModel>> = sequelize.define(
+  'Customer',
   {
     email: {
       type: new DataTypes.STRING(320), // max possible email length
@@ -44,7 +44,6 @@ Customer.init(
     },
   },
   {
-    sequelize,
     tableName: 'customers',
     updatedAt: false,
   }
