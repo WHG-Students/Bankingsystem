@@ -1,7 +1,14 @@
 import {Router, Request, Response, NextFunction} from 'express';
 import {basePath} from '../middleware/common';
+import {logger} from '../lib/winston';
+import {HTTPError, HTTPStatus} from './httpErrors';
 
 type Wrapper = (router: Router) => void;
+
+export const handleDatabaseFaltyError = (e: Error) => {
+  logger.error(JSON.stringify(e));
+  throw HTTPError(HTTPStatus.INTERNAL_SERVER_ERROR);
+};
 
 export const applyMiddleware = (
   middlewareWrappers: Wrapper[],
