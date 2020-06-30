@@ -51,7 +51,6 @@ export const generateIdToken = async (
       last_name: res.locals.customer.lastName,
       age: res.locals.customer.age,
       address: res.locals.customer.address,
-      creditAccount: res.locals.customer.creditAccount,
     },
     process.env.RSA_PRIVATE_KEY as string,
     {
