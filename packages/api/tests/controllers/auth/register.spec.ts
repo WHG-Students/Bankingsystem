@@ -1,11 +1,11 @@
 import {axios} from '..';
 import {AxiosError, AxiosResponse} from 'axios';
 import {server} from '../../../src/server';
-import {Customer} from '../../../src/models/customer';
+import {randomBytes} from 'crypto';
 
 const route = '/register';
-const mockData = {
-  email: 'testing@students.trade',
+const customerMockData = {
+  email: randomBytes(8).toString('hex') + '@students.trade',
   password: 'studentstrade',
   first_name: 'John',
   last_name: 'Smith',
@@ -30,7 +30,7 @@ describe('registration route tests', () => {
   test('send with missing data', async () => {
     try {
       await axios.post(route, {
-        ...mockData,
+        ...customerMockData,
         last_name: '',
       });
     } catch (e) {
@@ -41,7 +41,7 @@ describe('registration route tests', () => {
   test('send with invalid email', async () => {
     try {
       await axios.post(route, {
-        ...mockData,
+        ...customerMockData,
         email: 'notAnEmail@',
       });
     } catch (e) {
@@ -52,7 +52,7 @@ describe('registration route tests', () => {
   test('send password with length over 128', async () => {
     try {
       await axios.post(route, {
-        ...mockData,
+        ...customerMockData,
         password: Array(132).join('_'),
       });
     } catch (e) {
@@ -65,7 +65,7 @@ describe('registration route tests', () => {
       access_token: string;
       id_token: string;
     }> = await axios.post(route, {
-      ...mockData,
+      ...customerMockData,
     });
 
     expect(response.status).toBe(201);
@@ -74,7 +74,7 @@ describe('registration route tests', () => {
   test('check user exists', async () => {
     try {
       await axios.post(route, {
-        ...mockData,
+        ...customerMockData,
       });
     } catch (e) {
       expect((e as AxiosError).response?.status).toBe(409);
@@ -82,12 +82,6 @@ describe('registration route tests', () => {
   });
 
   afterAll(async () => {
-    // destroying the created customer afterwards
-    await Customer.destroy({
-      where: {
-        email: mockData.email,
-      },
-    });
     server.close();
   });
 });

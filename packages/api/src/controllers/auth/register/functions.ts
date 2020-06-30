@@ -1,8 +1,10 @@
 import {Request, Response, NextFunction} from 'express';
 import {Customer} from '../../../models/customer';
+import {CreditAccount} from '../../../models/creditAccount';
+import {CustomerCreditAccount} from '../../../models/relations/customerToCreditAccount';
 import {HTTPError, HTTPStatus} from '../../../helpers/httpErrors';
-import {logger} from '../../../lib/winston';
 import {hash, genSalt} from 'bcrypt';
+import {handleDatabaseFaltyError} from '../../../helpers';
 
 export const createAgeDate = (
   {body}: Request,
@@ -43,11 +45,40 @@ export const createUser = async (
       lastName: body.last_name,
       age: res.locals.age,
       address: body.address,
-      creditAccount: null,
     });
   } catch (e) {
-    logger.error(JSON.stringify(e));
-    throw HTTPError(HTTPStatus.INTERNAL_SERVER_ERROR);
+    handleDatabaseFaltyError(e);
+  }
+
+  next();
+};
+
+export const createCreditAccount = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    res.locals.creditAccount = await CreditAccount.create();
+  } catch (e) {
+    handleDatabaseFaltyError(e);
+  }
+
+  next();
+};
+
+export const createCustomerCreditAccountRelation = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    await CustomerCreditAccount.create({
+      creditAccountId: res.locals.creditAccount.id,
+      customerEmail: res.locals.customer.email,
+    });
+  } catch (e) {
+    handleDatabaseFaltyError(e);
   }
 
   next();
