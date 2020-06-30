@@ -1,17 +1,21 @@
 import {DataTypes, ModelCtor, Model} from 'sequelize';
 import {sequelize} from '../lib/sequelize';
 
-type CustomerModel = {
+type CustomerAttributes = {
   email: string;
   password: string;
   firstName: string;
   lastName: string;
   age: Date;
   address: string;
-  creditAccount?: number | null;
 };
 
-export const Customer: ModelCtor<Model<{}, CustomerModel>> = sequelize.define(
+type CustomerCreationAttributes = CustomerAttributes;
+
+export const Customer: ModelCtor<Model<
+  CustomerAttributes,
+  CustomerCreationAttributes
+>> = sequelize.define(
   'Customer',
   {
     email: {
@@ -37,10 +41,6 @@ export const Customer: ModelCtor<Model<{}, CustomerModel>> = sequelize.define(
     address: {
       type: new DataTypes.STRING(512),
       allowNull: false,
-    },
-    creditAccount: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: true,
     },
   },
   {
