@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  mysql:
+  mysql_test:
     image: mysql:5.7
-    container_name: 'banksystem_mysql'
+    container_name: 'banksystem_mysql_test'
     restart: always
     env_file:
       - .env
@@ -17,13 +17,13 @@ services:
     ports:
       - '3306:3306'
     volumes:
-      - mysql:/var/lib/mysql
+      - ~/volumes/mysql:/var/lib/mysql_test
     networks:
-      - banksystem
+      - banksystem_test
 
-  api:
+  api_test:
     image: node:12
-    container_name: 'banksystem_api'
+    container_name: 'banksystem_api_test'
     command: yarn run test:api
     ports:
       - '3000:3000'
@@ -31,15 +31,11 @@ services:
       - .:/srv/api:rw
     working_dir: /srv/api
     links:
-      - mysql
+      - mysql_test
     depends_on:
-      - mysql
+      - mysql_test
     networks:
-      - banksystem
+      - banksystem_test
 
 networks:
-  banksystem:
-
-volumes:
-  mysql:
-    driver: local
+  banksystem_test:
