@@ -9,6 +9,8 @@ import {
   createUser,
   createAgeDate,
   createPasswordHash,
+  createCreditAccount,
+  createCustomerCreditAccountRelation,
 } from './register/functions';
 import {generateAccessToken, generateIdToken} from '../shared/functions';
 
@@ -23,6 +25,8 @@ export const authRoutes = [
       userExistsCheck,
       createPasswordHash,
       createUser,
+      createCreditAccount,
+      createCustomerCreditAccountRelation,
       generateAccessToken,
       generateIdToken,
       async (req: Request, res: Response) => {
