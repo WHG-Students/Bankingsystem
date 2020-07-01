@@ -3,7 +3,7 @@ import {sequelize} from '../../lib/sequelize';
 
 type CreditAccountTransactionAttributes = {
   id: number;
-  balanceChangeId: number;
+  transactionId: number;
   creditAccountId: number;
 };
 
@@ -46,6 +46,3 @@ export const CreditAccountTransaction: ModelCtor<Model<
     createdAt: false,
   }
 );
-
-// creates the table if it doesn't exist
-CreditAccountTransaction.sync();

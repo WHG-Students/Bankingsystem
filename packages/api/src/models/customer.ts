@@ -48,6 +48,3 @@ export const Customer: ModelCtor<Model<
     updatedAt: false,
   }
 );
-
-// creates the table if it doesn't exist
-Customer.sync();
