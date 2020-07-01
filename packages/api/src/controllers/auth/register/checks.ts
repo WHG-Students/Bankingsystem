@@ -3,7 +3,7 @@ import {HTTPError, HTTPStatus} from '../../../helpers/httpErrors';
 import {Customer} from '../../../models/customer';
 import {logger} from '../../../lib/winston';
 
-export const preconditionRequiredCheck = (
+export const registerPreconditionCheck = (
   {body}: Request,
   res: Response,
   next: NextFunction
@@ -22,7 +22,7 @@ export const preconditionRequiredCheck = (
   next();
 };
 
-export const userExistsCheck = async (
+export const registerUserExistsCheck = async (
   {body}: Request,
   res: Response,
   next: NextFunction

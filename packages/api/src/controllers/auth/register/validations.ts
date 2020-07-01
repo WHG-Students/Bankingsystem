@@ -2,7 +2,7 @@ import {Request, Response, NextFunction} from 'express';
 import {HTTPError, HTTPStatus} from '../../../helpers/httpErrors';
 import validator from 'validator';
 
-export const bodyValidations = (
+export const registerBodyValidations = (
   {body}: Request,
   res: Response,
   next: NextFunction
