@@ -25,7 +25,7 @@ describe('global server tests', () => {
     }
   });
 
-  afterAll(async () => {
+  afterAll(() => {
     server.close();
   });
 });
