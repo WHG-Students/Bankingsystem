@@ -3,7 +3,6 @@ import {Request, Response} from 'express';
 import {
   transactionPreconditionCheck,
   transactionBodyValidations,
-  validateSenderHasRequiredBalance,
   loadReceiver,
   loadReceiverCreditAccount,
   createTransaction,
@@ -12,19 +11,18 @@ import {
   loadTransactions,
   loadTransactionRelations,
 } from './transactions';
-import {
-  depositBodyValidations,
-  depositPreconditionCheck,
-  createDeposit,
-  loadDeposits,
-} from './deposits';
+import {createDeposit, loadDeposits} from './deposits';
 import {
   checkIsAuthenticated,
   loadCreditAccount,
   createBalanceChangeRelation,
   updateBalanceByAmount,
+  validateSenderHasRequiredBalance,
   loadBalanceChangeRelations,
+  balanceChangeBodyValidations,
+  balanceChangePreconditionCheck,
 } from './shared';
+import {createWithdrawal, loadWithdrawals} from './withdrawals';
 
 export const exchangeRoutes = [
   {
@@ -63,8 +61,8 @@ export const exchangeRoutes = [
     path: '/deposits',
     method: 'post',
     handler: [
-      depositPreconditionCheck,
-      depositBodyValidations,
+      balanceChangePreconditionCheck,
+      balanceChangeBodyValidations,
       checkIsAuthenticated,
       loadCreditAccount,
       createDeposit,
@@ -85,6 +83,36 @@ export const exchangeRoutes = [
       loadDeposits,
       async (req: Request, res: Response) => {
         res.status(200).send(res.locals.deposits);
+      },
+    ],
+  },
+  {
+    path: '/withdrawals',
+    method: 'post',
+    handler: [
+      balanceChangePreconditionCheck,
+      balanceChangeBodyValidations,
+      checkIsAuthenticated,
+      loadCreditAccount,
+      validateSenderHasRequiredBalance,
+      createWithdrawal,
+      updateBalanceByAmount,
+      createBalanceChangeRelation,
+      async (req: Request, res: Response) => {
+        res.status(201).send(res.locals.balanceChange);
+      },
+    ],
+  },
+  {
+    path: '/withdrawals',
+    method: 'get',
+    handler: [
+      checkIsAuthenticated,
+      loadCreditAccount,
+      loadBalanceChangeRelations,
+      loadWithdrawals,
+      async (req: Request, res: Response) => {
+        res.status(200).send(res.locals.withdrawals);
       },
     ],
   },
