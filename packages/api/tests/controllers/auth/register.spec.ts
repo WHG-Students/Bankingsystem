@@ -81,7 +81,7 @@ describe('registration route tests', () => {
     }
   });
 
-  afterAll(async () => {
+  afterAll(() => {
     server.close();
   });
 });

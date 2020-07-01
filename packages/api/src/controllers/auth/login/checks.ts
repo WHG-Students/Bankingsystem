@@ -3,32 +3,25 @@ import {HTTPError, HTTPStatus} from '../../../helpers/httpErrors';
 import {Customer} from '../../../models/customer';
 import {logger} from '../../../lib/winston';
 
-export const registerPreconditionCheck = (
+export const loginPreconditionCheck = (
   {body}: Request,
   res: Response,
   next: NextFunction
 ) => {
-  if (
-    !body.email ||
-    !body.password ||
-    !body.first_name ||
-    !body.last_name ||
-    !body.age ||
-    !body.address
-  ) {
+  if (!body.email || !body.password) {
     throw HTTPError(HTTPStatus.PRECONDITION_REQUIRED);
   }
 
   next();
 };
 
-export const registerUserExistsCheck = async (
+export const loginUserExistsCheck = async (
   {body}: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    res.locals.temp = await Customer.findOne({
+    res.locals.customer = await Customer.findOne({
       where: {
         email: body.email,
       },
@@ -38,10 +31,9 @@ export const registerUserExistsCheck = async (
     throw HTTPError(HTTPStatus.INTERNAL_SERVER_ERROR);
   }
 
-  // must check outside if it already existsm or otherwise
-  // it would have been catched
-  if (res.locals.temp) {
-    throw HTTPError(HTTPStatus.CONFLICT);
+  // checks if the customer even exists
+  if (!res.locals.customer) {
+    throw HTTPError(HTTPStatus.NOT_FOUND);
   }
 
   next();

@@ -1,10 +1,10 @@
 import {Route} from '../../helpers';
 import {Request, Response} from 'express';
 import {
-  preconditionRequiredCheck as registerPreconditionCheck,
-  userExistsCheck,
+  registerPreconditionCheck,
+  registerUserExistsCheck,
 } from './register/checks';
-import {bodyValidations} from './register/validations';
+import {registerBodyValidations} from './register/validations';
 import {
   createUser,
   createAgeDate,
@@ -12,6 +12,11 @@ import {
   createCreditAccount,
   createCustomerCreditAccountRelation,
 } from './register/functions';
+import {loginPreconditionCheck, loginUserExistsCheck} from './login/checks';
+import {
+  loginBodyValidations,
+  validateUserCredentials,
+} from './login/validations';
 import {generateAccessToken, generateIdToken} from '../shared/functions';
 
 export const authRoutes = [
@@ -20,9 +25,9 @@ export const authRoutes = [
     method: 'post',
     handler: [
       registerPreconditionCheck,
-      bodyValidations,
+      registerBodyValidations,
       createAgeDate,
-      userExistsCheck,
+      registerUserExistsCheck,
       createPasswordHash,
       createUser,
       createCreditAccount,
@@ -31,6 +36,24 @@ export const authRoutes = [
       generateIdToken,
       async (req: Request, res: Response) => {
         res.status(201).send({
+          access_token: res.locals.accessToken,
+          id_token: res.locals.idToken,
+        });
+      },
+    ],
+  },
+  {
+    path: '/login',
+    method: 'post',
+    handler: [
+      loginPreconditionCheck,
+      loginBodyValidations,
+      loginUserExistsCheck,
+      validateUserCredentials,
+      generateAccessToken,
+      generateIdToken,
+      async (req: Request, res: Response) => {
+        res.status(200).send({
           access_token: res.locals.accessToken,
           id_token: res.locals.idToken,
         });
