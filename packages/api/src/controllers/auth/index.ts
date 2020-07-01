@@ -1,23 +1,22 @@
 import {Route} from '../../helpers';
 import {Request, Response} from 'express';
 import {
-  registerPreconditionCheck,
-  registerUserExistsCheck,
-} from './register/checks';
-import {registerBodyValidations} from './register/validations';
-import {
   createUser,
   createAgeDate,
   createPasswordHash,
   createCreditAccount,
   createCustomerCreditAccountRelation,
-} from './register/functions';
-import {loginPreconditionCheck, loginUserExistsCheck} from './login/checks';
+  registerPreconditionCheck,
+  registerUserExistsCheck,
+  registerBodyValidations,
+} from './register';
 import {
   loginBodyValidations,
   validateUserCredentials,
-} from './login/validations';
-import {generateAccessToken, generateIdToken} from '../shared/functions';
+  loginPreconditionCheck,
+  loginUserExistsCheck,
+} from './login';
+import {generateAccessToken, generateIdToken} from '../shared';
 
 export const authRoutes = [
   {
