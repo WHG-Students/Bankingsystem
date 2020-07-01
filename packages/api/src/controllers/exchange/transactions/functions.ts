@@ -5,7 +5,7 @@ import {Customer} from '../../../models/customer';
 import {HTTPError, HTTPStatus} from '../../../helpers/httpErrors';
 import {Transaction} from '../../../models/transaction';
 import {CreditAccountTransaction} from '../../../models/relations/creditAccountToTransaction';
-import {loadCreditAccountByEmail} from '../../shared/functions';
+import {loadCreditAccountByEmail} from '../shared';
 
 export const loadReceiver = async (
   {body}: Request,

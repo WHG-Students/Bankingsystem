@@ -1,73 +1,12 @@
-import {NextFunction, Response, Request} from 'express';
-import {sign, verify} from 'jsonwebtoken';
-import {config} from 'dotenv';
-import {HTTPError, HTTPStatus} from '../../helpers/httpErrors';
-import {logger} from '../../lib/winston';
-import {Customer} from '../../models/customer';
-import {handleDatabaseFaltyError} from '../../helpers';
-import {CustomerCreditAccount} from '../../models/relations/customerToCreditAccount';
-import {CreditAccount} from '../../models/creditAccount';
-
-config();
-
-/**
- * using the accessToken for authentication
- *
- * @param req
- * @param res
- * @param next
- */
-export const generateAccessToken = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  res.locals.accessToken = sign(
-    {
-      email: res.locals.customer.email,
-    },
-    process.env.RSA_PRIVATE_KEY as string,
-    {
-      algorithm: 'RS256',
-      audience: 'https://students.trade/',
-      expiresIn: '365 days',
-    }
-  );
-
-  next();
-};
-
-/**
- * using the id token here because we want
- * to cache some private data on the clientside
- *
- * @param req
- * @param res
- * @param next
- */
-export const generateIdToken = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  res.locals.idToken = sign(
-    {
-      email: res.locals.customer.email,
-      first_name: res.locals.customer.firstName,
-      last_name: res.locals.customer.lastName,
-      age: res.locals.customer.age,
-      address: res.locals.customer.address,
-    },
-    process.env.RSA_PRIVATE_KEY as string,
-    {
-      algorithm: 'RS256',
-      audience: 'https://students.trade/',
-      expiresIn: '365 days',
-    }
-  );
-
-  next();
-};
+import {CreditAccountBalanceChange} from './../../../models/relations/creditAccountToBalanceChange';
+import {CustomerCreditAccount} from './../../../models/relations/customerToCreditAccount';
+import {Customer} from './../../../models/customer';
+import {logger} from './../../../lib/winston';
+import {verify} from 'jsonwebtoken';
+import {HTTPError, HTTPStatus} from './../../../helpers/httpErrors';
+import {Request, Response, NextFunction} from 'express';
+import {CreditAccount} from '../../../models/creditAccount';
+import {handleDatabaseFaltyError} from '../../../helpers';
 
 /**
  * Authorizing with the Bearer Authentication Method
@@ -170,6 +109,69 @@ export const loadCreditAccount = async (
   res.locals.creditAccount = await loadCreditAccountByEmail(
     res.locals.customer.email
   );
+
+  next();
+};
+
+export const updateBalanceByAmount = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    await CreditAccount.update(
+      {
+        balance: res.locals.creditAccount.balance + res.locals.amount,
+      },
+      {
+        where: {
+          id: res.locals.creditAccount.id,
+        },
+      }
+    );
+  } catch (e) {
+    handleDatabaseFaltyError(e);
+  }
+
+  next();
+};
+
+export const createBalanceChangeRelation = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    await CreditAccountBalanceChange.create({
+      balanceChangeId: res.locals.balanceChange.id,
+      creditAccountId: res.locals.creditAccount.id,
+    });
+  } catch (e) {
+    handleDatabaseFaltyError(e);
+  }
+
+  next();
+};
+
+export const loadBalanceChangeRelations = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    res.locals.creditAccountBalanceChanges = await CreditAccountBalanceChange.findAll(
+      {
+        where: {
+          creditAccountId: res.locals.creditAccount.id,
+        },
+      }
+    );
+  } catch (e) {
+    handleDatabaseFaltyError(e);
+  }
+
+  res.locals.creditAccountBalanceChanges =
+    res.locals.creditAccountBalanceChanges || [];
 
   next();
 };
