@@ -12,7 +12,7 @@ import {
   loadTransactions,
   loadTransactionRelations,
 } from './transactions';
-import {checkIsAuthenticated, loadCreditAccount} from '../shared/functions';
+import {checkIsAuthenticated, loadCreditAccount} from '../shared';
 
 export const exchangeRoutes = [
   {
