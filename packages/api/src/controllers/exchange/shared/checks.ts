@@ -1,7 +1,7 @@
 import {Request, Response, NextFunction} from 'express';
 import {HTTPError, HTTPStatus} from '../../../helpers/httpErrors';
 
-export const depositPreconditionCheck = (
+export const balanceChangePreconditionCheck = (
   {body}: Request,
   res: Response,
   next: NextFunction
