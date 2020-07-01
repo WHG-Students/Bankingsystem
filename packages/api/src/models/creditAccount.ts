@@ -38,6 +38,3 @@ export const CreditAccount: ModelCtor<Model<
     tableName: 'creditAccounts',
   }
 );
-
-// creates the table if it doesn't exist
-CreditAccount.sync();

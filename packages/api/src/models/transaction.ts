@@ -31,12 +31,18 @@ export const Transaction: ModelCtor<Model<
     },
     sender: {
       type: new DataTypes.STRING(320),
-      references: 'customers',
+      references: {
+        model: 'customers',
+        key: 'email',
+      },
       allowNull: false,
     },
     receiver: {
       type: new DataTypes.STRING(320),
-      references: 'customers',
+      references: {
+        model: 'customers',
+        key: 'email',
+      },
       allowNull: false,
     },
     title: {

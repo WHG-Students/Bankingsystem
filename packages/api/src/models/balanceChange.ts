@@ -36,7 +36,10 @@ export const BalanceChange: ModelCtor<Model<
     },
     creditAccount: {
       type: DataTypes.INTEGER.UNSIGNED,
-      references: 'creditAccounts',
+      references: {
+        model: 'creditAccounts',
+        key: 'id',
+      },
       allowNull: false,
     },
   },
@@ -44,6 +47,3 @@ export const BalanceChange: ModelCtor<Model<
     tableName: 'balanceChanges',
   }
 );
-
-// creates the table if it doesn't exist
-BalanceChange.sync();

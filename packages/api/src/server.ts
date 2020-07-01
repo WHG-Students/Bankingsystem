@@ -8,7 +8,6 @@ import routes from './controllers';
 import dotenv from 'dotenv';
 
 import './lib';
-import './models';
 
 dotenv.config();
 

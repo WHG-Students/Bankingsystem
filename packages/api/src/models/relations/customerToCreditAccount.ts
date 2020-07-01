@@ -46,6 +46,3 @@ export const CustomerCreditAccount: ModelCtor<Model<
     createdAt: false,
   }
 );
-
-// creates the table if it doesn't exist
-CustomerCreditAccount.sync();
