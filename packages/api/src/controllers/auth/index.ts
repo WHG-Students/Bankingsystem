@@ -16,7 +16,7 @@ import {
   loginPreconditionCheck,
   loginUserExistsCheck,
 } from './login';
-import {generateAccessToken, generateIdToken} from '../shared';
+import {generateAccessToken, generateIdToken} from './shared';
 
 export const authRoutes = [
   {
