@@ -12,7 +12,19 @@ import {
   loadTransactions,
   loadTransactionRelations,
 } from './transactions';
-import {checkIsAuthenticated, loadCreditAccount} from '../shared';
+import {
+  depositBodyValidations,
+  depositPreconditionCheck,
+  createDeposit,
+  loadDeposits,
+} from './deposits';
+import {
+  checkIsAuthenticated,
+  loadCreditAccount,
+  createBalanceChangeRelation,
+  updateBalanceByAmount,
+  loadBalanceChangeRelations,
+} from './shared';
 
 export const exchangeRoutes = [
   {
@@ -44,6 +56,35 @@ export const exchangeRoutes = [
       loadTransactions,
       async (req: Request, res: Response) => {
         res.status(200).send(res.locals.transactions);
+      },
+    ],
+  },
+  {
+    path: '/deposits',
+    method: 'post',
+    handler: [
+      depositPreconditionCheck,
+      depositBodyValidations,
+      checkIsAuthenticated,
+      loadCreditAccount,
+      createDeposit,
+      updateBalanceByAmount,
+      createBalanceChangeRelation,
+      async (req: Request, res: Response) => {
+        res.status(201).send(res.locals.balanceChange);
+      },
+    ],
+  },
+  {
+    path: '/deposits',
+    method: 'get',
+    handler: [
+      checkIsAuthenticated,
+      loadCreditAccount,
+      loadBalanceChangeRelations,
+      loadDeposits,
+      async (req: Request, res: Response) => {
+        res.status(200).send(res.locals.deposits);
       },
     ],
   },
