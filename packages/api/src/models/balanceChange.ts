@@ -45,5 +45,6 @@ export const BalanceChange: ModelCtor<Model<
   },
   {
     tableName: 'balanceChanges',
+    updatedAt: false,
   }
 );
