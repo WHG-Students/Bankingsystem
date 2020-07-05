@@ -1,4 +1,4 @@
-import {DataTypes, ModelCtor, Model, Optional} from 'sequelize';
+import {DataTypes, Optional, ModelDefined} from 'sequelize';
 import {sequelize} from '../lib/sequelize';
 
 type TransactionAttributes = {
@@ -14,10 +14,10 @@ type TransactionCreationAttributes = Optional<
   'id' | 'title'
 >;
 
-export const Transaction: ModelCtor<Model<
+export const Transaction: ModelDefined<
   TransactionAttributes,
   TransactionCreationAttributes
->> = sequelize.define(
+> = sequelize.define(
   'Transaction',
   {
     id: {

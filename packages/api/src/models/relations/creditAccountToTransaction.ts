@@ -1,4 +1,4 @@
-import {DataTypes, ModelCtor, Model, Optional} from 'sequelize';
+import {DataTypes, Optional, ModelDefined} from 'sequelize';
 import {sequelize} from '../../lib/sequelize';
 
 type CreditAccountTransactionAttributes = {
@@ -12,10 +12,10 @@ type CreditAccountTransactionCreationAttributes = Optional<
   'id'
 >;
 
-export const CreditAccountTransaction: ModelCtor<Model<
+export const CreditAccountTransaction: ModelDefined<
   CreditAccountTransactionAttributes,
   CreditAccountTransactionCreationAttributes
->> = sequelize.define(
+> = sequelize.define(
   'CreditAccountToTransaction',
   {
     id: {

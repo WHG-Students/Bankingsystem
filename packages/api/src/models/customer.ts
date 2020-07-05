@@ -1,4 +1,4 @@
-import {DataTypes, ModelCtor, Model} from 'sequelize';
+import {DataTypes, ModelDefined} from 'sequelize';
 import {sequelize} from '../lib/sequelize';
 
 type CustomerAttributes = {
@@ -12,10 +12,10 @@ type CustomerAttributes = {
 
 type CustomerCreationAttributes = CustomerAttributes;
 
-export const Customer: ModelCtor<Model<
+export const Customer: ModelDefined<
   CustomerAttributes,
   CustomerCreationAttributes
->> = sequelize.define(
+> = sequelize.define(
   'Customer',
   {
     email: {

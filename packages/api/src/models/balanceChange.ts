@@ -1,4 +1,4 @@
-import {DataTypes, ModelCtor, Model, Optional} from 'sequelize';
+import {DataTypes, Optional, ModelDefined} from 'sequelize';
 import {sequelize} from '../lib/sequelize';
 
 export enum BalanceChangeTypes {
@@ -15,10 +15,10 @@ type BalanceChangeAttributes = {
 
 type BalanceChangeCreationAttributes = Optional<BalanceChangeAttributes, 'id'>;
 
-export const BalanceChange: ModelCtor<Model<
+export const BalanceChange: ModelDefined<
   BalanceChangeAttributes,
   BalanceChangeCreationAttributes
->> = sequelize.define(
+> = sequelize.define(
   'BalanceChange',
   {
     id: {
