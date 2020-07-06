@@ -6,9 +6,9 @@
   "private": true,
   "scripts": {
     "start": "npx pm2 start pm2.yaml",
-    "serve": "tsc-watch -p ./src --lib \"ES2016\",\"DOM\" --onSuccess \"node ./dist/server.js\"",
-    "test": "jest --coverage --forceExit --runInBand --watchAll=false",
-    "build": "tsc",
+    "serve": "npx tsc-watch -p ./src --lib \"ES2016\",\"DOM\" --onSuccess \"node ./dist/server.js\"",
+    "test": "npx jest --coverage --forceExit --runInBand --watchAll=false",
+    "build": "npx tsc",
     "check": "gts check",
     "clean": "gts clean",
     "fix": "gts fix"

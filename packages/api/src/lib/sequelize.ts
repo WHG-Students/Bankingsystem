@@ -35,6 +35,7 @@ const createConnection = async () => {
   try {
     await sequelize.authenticate();
     logger.info('MySQL Authentication successful');
+    await syncTables();
   } catch (e) {
     logger.warn('MySQL Authentication failed');
     logger.error(JSON.stringify(e));
@@ -56,7 +57,6 @@ const createConnection = async () => {
         //! sql injection is possible here.
         `CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};`
       );
-      await syncTables();
     }
 
     // connection will be cut off by mysql on first startup.
