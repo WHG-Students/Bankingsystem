@@ -26,6 +26,19 @@ import {createWithdrawal, loadWithdrawals} from './withdrawals';
 
 export const exchangeRoutes = [
   {
+    // not following our rest naming convention here
+    // as the user does not know the internal id of the creditAccount
+    path: '/creditAccount',
+    method: 'get',
+    handler: [
+      checkIsAuthenticated,
+      loadCreditAccount,
+      async (req: Request, res: Response) => {
+        res.status(200).send(res.locals.creditAccount);
+      },
+    ],
+  },
+  {
     path: '/transactions',
     method: 'post',
     handler: [
