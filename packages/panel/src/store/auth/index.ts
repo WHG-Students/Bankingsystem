@@ -1,11 +1,15 @@
 import {Module} from 'vuex';
 import {decode} from 'jsonwebtoken';
 import {logger} from '@/plugins/winston';
+import {AxiosResponse} from 'axios';
 
 export enum Key {
   ACCESS_TOKEN = 'accessToken',
   ID_TOKEN = 'idToken',
 }
+
+// msut import api after exporting key
+import {api} from '@/plugins/axios';
 
 export enum Auth {
   CHECK_IS_AUTHENTICATED = 'checkIsAuthenticated',
@@ -15,6 +19,10 @@ export enum Auth {
   SET_USER = 'setUser',
   GET_USER = 'getUser',
   STORE_TOKENS = 'storeTokens',
+  REMOVE_TOKENS = 'removeTokens',
+  FETCH_CREDIT_ACCOUNT = 'fetchCreditAccount',
+  SET_CREDIT_ACCOUNT = 'setCreditAccount',
+  GET_CREDIT_ACCOUNT = 'getCreditAccount',
 }
 
 type UserShared = {
@@ -28,6 +36,13 @@ type UserTokenPayload = UserShared & {
   age: string;
 };
 
+export type CreditAccountState = {
+  balance: number;
+  maxAllowance: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type UserState = UserShared & {
   firstName: string;
   lastName: string;
@@ -36,13 +51,16 @@ export type UserState = UserShared & {
 
 type AuthState = {
   isAuthenticated: boolean;
-  user?: UserState;
+  user: UserState;
+  creditAccount: CreditAccountState;
 };
 
 export const auth = {
   namespaced: true,
   state: {
     isAuthenticated: false,
+    user: {} as UserState,
+    creditAccount: {} as CreditAccountState,
   },
   getters: {
     [Auth.GET_IS_AUTHENTICATED](state) {
@@ -50,6 +68,9 @@ export const auth = {
     },
     [Auth.GET_USER](state) {
       return state.user;
+    },
+    [Auth.GET_CREDIT_ACCOUNT](state) {
+      return state.creditAccount;
     },
   },
   mutations: {
@@ -60,6 +81,10 @@ export const auth = {
       logger.info(payload);
       state.user = payload;
     },
+    [Auth.SET_CREDIT_ACCOUNT](state, payload: CreditAccountState) {
+      logger.info(payload);
+      state.creditAccount = payload;
+    },
   },
   actions: {
     [Auth.CHECK_IS_AUTHENTICATED]({commit}) {
@@ -68,7 +93,7 @@ export const auth = {
       // need to do this ternary check as accessToken is not a boolean
       commit(Auth.SET_IS_AUTHENTICATED, accessToken ? true : false);
     },
-    [Auth.DECODE_ID_TOKEN]({commit}) {
+    async [Auth.DECODE_ID_TOKEN]({commit}) {
       const idToken = localStorage.getItem(Key.ID_TOKEN);
 
       // if this error occurs we only log it to the console
@@ -88,7 +113,7 @@ export const auth = {
         } as UserState);
       }
     },
-    [Auth.STORE_TOKENS](
+    async [Auth.STORE_TOKENS](
       {dispatch},
       tokens: {access_token: string; id_token: string}
     ) {
@@ -98,7 +123,26 @@ export const auth = {
       localStorage.setItem(Key.ID_TOKEN, idToken);
 
       dispatch(Auth.CHECK_IS_AUTHENTICATED);
-      dispatch(Auth.DECODE_ID_TOKEN);
+      await dispatch(Auth.DECODE_ID_TOKEN);
+    },
+    [Auth.REMOVE_TOKENS]({commit}) {
+      localStorage.removeItem(Key.ACCESS_TOKEN);
+      localStorage.removeItem(Key.ID_TOKEN);
+
+      commit(Auth.SET_IS_AUTHENTICATED, false);
+    },
+    async [Auth.FETCH_CREDIT_ACCOUNT]({commit}) {
+      try {
+        const response: AxiosResponse<CreditAccountState> = await api.get(
+          '/creditAccount'
+        );
+        logger.info(
+          `vuex/auth/${Auth.FETCH_CREDIT_ACCOUNT}: fetched credit account`
+        );
+        commit(Auth.SET_CREDIT_ACCOUNT, response.data);
+      } catch (e) {
+        logger.error(e);
+      }
     },
   },
 } as Module<AuthState, {}>;
