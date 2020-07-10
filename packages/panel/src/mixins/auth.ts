@@ -21,10 +21,11 @@ export const alertMixin = Vue.extend({
 
 export const loginMixin = Vue.extend({
   methods: {
-    ...mapActions('auth', [Auth.STORE_TOKENS]),
-    login(tokens: {id_token: string; access_token: string}) {
-      this[Auth.STORE_TOKENS](tokens);
+    ...mapActions('auth', [Auth.STORE_TOKENS, Auth.FETCH_CREDIT_ACCOUNT]),
+    async login(tokens: {id_token: string; access_token: string}) {
+      await this[Auth.STORE_TOKENS](tokens);
       updateAccessToken();
+      await this[Auth.FETCH_CREDIT_ACCOUNT]();
       this.$router.push({name: 'Home'});
     },
   },
