@@ -6,6 +6,7 @@ import {HTTPError, HTTPStatus} from '../../../helpers/httpErrors';
 import {Transaction} from '../../../models/transaction';
 import {CreditAccountTransaction} from '../../../models/relations/creditAccountToTransaction';
 import {loadCreditAccountByEmail} from '../shared';
+import {logger} from '../../../lib/winston';
 
 export const loadReceiver = async (
   {body}: Request,
@@ -148,7 +149,7 @@ export const loadTransactions = async (
   next: NextFunction
 ) => {
   const transactionIds = res.locals.creditAccountTransactions.map(
-    (e: {id: number}) => e.id
+    (e: {transactionId: number}) => e.transactionId
   );
 
   try {
