@@ -30,7 +30,7 @@ export const loadWithdrawals = async (
   next: NextFunction
 ) => {
   const balanceChangeIds = res.locals.creditAccountBalanceChanges.map(
-    (e: {id: number}) => e.id
+    (e: {balanceChangeId: number}) => e.balanceChangeId
   );
 
   try {
