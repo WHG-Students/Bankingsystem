@@ -1,4 +1,13 @@
 export const de = {
+  layout: {
+    header: {
+      home: 'Übersicht',
+      transactions: 'Transaktionen',
+      deposits: 'Einzahlungen',
+      withdrawals: 'Abhebungen',
+      logout: 'Logout',
+    },
+  },
   auth: {
     register: {
       registerAnAccount: 'Erstelle einen Account',
@@ -54,5 +63,22 @@ export const de = {
         error: 'Ein unbekannter Fehler ist aufgetreten.',
       },
     },
+  },
+  home: {
+    profile: 'Profil',
+    name: 'Name',
+    email: 'Email',
+    age: 'Alter',
+    account: 'Konto',
+    address: 'Addresse',
+    balance: 'Guthaben',
+    maxAllowance: 'Guthabenlimit',
+    createdAt: 'Erstellt am',
+    updatedAt: 'Zuletzt aktualisiert am',
+    exchangedAmount: 'Transaktionsbetrag',
+    sender: 'Sender',
+    receiver: 'Empfänger',
+    title: 'Grund',
+    amount: 'Betrag',
   },
 };
