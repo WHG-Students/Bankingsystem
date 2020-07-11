@@ -136,3 +136,17 @@ export default mixins(alertMixin, loginMixin).extend({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+.relative {
+  position: relative;
+
+  .alert-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+  }
+}
+</style>
