@@ -165,17 +165,11 @@ export default Vue.extend({
   components: {},
   name: 'Home',
   methods: {
-    ...mapActions('finance', [
-      Finance.FETCH_TRANSACTIONS,
-      Finance.FETCH_WITHDRAWALS,
-      Finance.FETCH_DEPOSITS,
-    ]),
     ...mapGetters('finance', [
       Finance.GET_TRANSACTIONS,
       Finance.GET_WITHDRAWALS,
       Finance.GET_DEPOSITS,
     ]),
-    ...mapActions('auth', [Auth.FETCH_CREDIT_ACCOUNT]),
     ...mapGetters('auth', [Auth.GET_USER, Auth.GET_CREDIT_ACCOUNT]),
     ...methods,
   },
@@ -233,12 +227,6 @@ export default Vue.extend({
         }))
         .slice(0, 5);
     },
-  },
-  async mounted() {
-    await this[Auth.FETCH_CREDIT_ACCOUNT]();
-    await this[Finance.FETCH_TRANSACTIONS]();
-    await this[Finance.FETCH_WITHDRAWALS]();
-    await this[Finance.FETCH_DEPOSITS]();
   },
 });
 </script>
