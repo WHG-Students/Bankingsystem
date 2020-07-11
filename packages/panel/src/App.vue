@@ -78,6 +78,7 @@ export default Vue.extend({
 
 body {
   font-family: 'Hind Vadodara', sans-serif;
+  overflow-y: scroll;
 }
 
 .medium {
