@@ -50,56 +50,18 @@
           <transaction-list class="mt-5" :transactions="transactions" />
         </b-col>
         <b-col cols="12" sm="6" lg="3">
-          <b-card no-body class="mt-5">
-            <b-card-header
-              header-bg-variant="light"
-              header-text-variant="black"
-              class="semibold"
-            >
-              {{ $t('layout.header.deposits') }}
-            </b-card-header>
-            <div class="list">
-              <div v-for="(deposit, index) in deposits" :key="index">
-                <b-card-body>
-                  <div v-for="(value, key) in deposit" :key="key">
-                    <div
-                      class="d-flex justify-content-between"
-                      v-if="shouldBeHiddenBalanceChange(key)"
-                    >
-                      <span class="medium">{{ $t('home.' + key) }}</span>
-                      <span>{{ value }}</span>
-                    </div>
-                  </div>
-                </b-card-body>
-              </div>
-            </div>
-          </b-card>
+          <balance-change-list
+            class="mt-5"
+            :balanceChanges="deposits"
+            type="deposits"
+          />
         </b-col>
         <b-col cols="12" sm="6" lg="3">
-          <b-card no-body class="mt-5">
-            <b-card-header
-              header-bg-variant="light"
-              header-text-variant="black"
-              class="semibold"
-            >
-              {{ $t('layout.header.withdrawals') }}
-            </b-card-header>
-            <div class="list">
-              <div v-for="(withdrawal, index) in withdrawals" :key="index">
-                <b-card-body>
-                  <div v-for="(value, key) in withdrawal" :key="key">
-                    <div
-                      class="d-flex justify-content-between"
-                      v-if="shouldBeHiddenBalanceChange(key)"
-                    >
-                      <span class="medium">{{ $t('home.' + key) }}</span>
-                      <span>{{ value }}</span>
-                    </div>
-                  </div>
-                </b-card-body>
-              </div>
-            </div>
-          </b-card>
+          <balance-change-list
+            class="mt-5"
+            :balanceChanges="withdrawals"
+            type="withdrawals"
+          />
         </b-col>
       </b-row>
     </b-container>
@@ -118,19 +80,11 @@ import {
   DepositState,
 } from '../store/finance';
 import TransactionList from '@/components/shared/TransactionList.vue';
-
-// small typescript hack we need to do for now.
-// should come back to check this later
-const methods = {
-  shouldBeHiddenBalanceChange(key: string) {
-    if (key === 'type' || key === 'id' || key === 'creditAccount') return false;
-    return true;
-  },
-};
+import BalanceChangeList from '@/components/shared/BalanceChangeList.vue';
 
 export default mixins(formattingMixin, sortingMixin).extend({
   name: 'Home',
-  components: {TransactionList},
+  components: {TransactionList, BalanceChangeList},
   methods: {
     ...mapGetters('finance', [
       Finance.GET_TRANSACTIONS,
@@ -138,7 +92,6 @@ export default mixins(formattingMixin, sortingMixin).extend({
       Finance.GET_DEPOSITS,
     ]),
     ...mapGetters('auth', [Auth.GET_USER, Auth.GET_CREDIT_ACCOUNT]),
-    ...methods,
   },
   computed: {
     userComp() {
