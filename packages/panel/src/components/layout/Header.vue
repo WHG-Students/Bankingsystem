@@ -2,7 +2,7 @@
   <header class="mb-5">
     <b-navbar toggleable="lg" type="dark" variant="dark">
       <b-container>
-        <b-navbar-brand href="#">
+        <b-navbar-brand to="/">
           WHB - Werner Heisenberger Bank
         </b-navbar-brand>
 
