@@ -5,8 +5,10 @@
     "serve": "concurrently -r \"npm run serve:panel\" \"npm run serve:api\" \"docker-compose up\"",
     "serve:panel": "lerna run serve --stream --scope=panel",
     "serve:api": "lerna run serve --stream --scope=api",
+    "build:panel": "lerna run build --stream --scope=panel",
+    "build:api": "lerna run build --stream --scope=api",
+    "start:api": "lerna run start --scope=api",
     "test:api": "lerna run test --stream --scope=api",
-    "postinstall": "lerna bootstrap --hoist",
     "test": "docker-compose -f docker-compose.test.yml up"
   },
   "devDependencies": {

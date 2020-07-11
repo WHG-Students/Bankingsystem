@@ -8,6 +8,7 @@ dotenv.config({
 
 const {
   MYSQL_HOST,
+  MYSQL_PORT,
   MYSQL_DATABASE,
   MYSQL_ROOT_PASSWORD,
   MYSQL_USER,
@@ -19,7 +20,7 @@ process.on('unhandledRejection', () => {});
 
 export const sequelize = new Sequelize({
   dialect: 'mysql',
-  port: 3306,
+  port: +(MYSQL_PORT || ''),
   host: MYSQL_HOST,
   username: MYSQL_USER,
   database: MYSQL_DATABASE,

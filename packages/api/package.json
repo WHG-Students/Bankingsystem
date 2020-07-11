@@ -5,8 +5,8 @@
   "license": " ",
   "private": true,
   "scripts": {
-    "start": "npx pm2 start pm2.yaml",
     "serve": "npx tsc-watch -p ./src --lib \"ES2016\",\"DOM\" --onSuccess \"node ./dist/server.js\"",
+    "start": "pm2-runtime ./dist/server.js",
     "test": "npx jest --coverage --forceExit --runInBand --watchAll=false",
     "build": "npx tsc",
     "check": "gts check",

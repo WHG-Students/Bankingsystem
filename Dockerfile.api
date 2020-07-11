@@ -1,0 +1,14 @@
+FROM node:12 as builder
+WORKDIR /usr/src/api/
+RUN npm i -g lerna
+RUN npm i -g pm2
+
+COPY ./package.json .
+COPY ./packages/api/package.json ./packages/api/
+RUN yarn
+RUN cd ./packages/api && yarn
+
+COPY . .
+RUN cd ./packages/api && yarn build
+
+CMD ["yarn", "start:api"]

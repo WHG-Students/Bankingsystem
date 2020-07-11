@@ -1,0 +1,19 @@
+FROM node:12 as builder
+WORKDIR /usr/src/panel/
+RUN npm i -g lerna
+
+COPY ./package.json .
+COPY ./packages/panel/package.json ./packages/panel/
+RUN yarn
+RUN cd ./packages/panel && yarn
+
+COPY . .
+RUN cd ./packages/panel && yarn build
+
+FROM nginx:stable-alpine as production
+COPY --from=builder /usr/src/panel/packages/panel/dist /usr/share/nginx/html
+COPY --from=builder /usr/src/panel/nginx.conf /etc/nginx
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
