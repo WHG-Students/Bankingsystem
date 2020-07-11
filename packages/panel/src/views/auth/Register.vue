@@ -2,7 +2,7 @@
   <div>
     <b-container class="relative">
       <b-row class="d-flex justify-content-center">
-        <b-col cols="8">
+        <b-col cols="12" lg="8">
           <div class="alert-container mt-2">
             <b-alert
               :show="alert.countdown"
@@ -21,7 +21,7 @@
             </b-alert>
           </div>
         </b-col>
-        <b-col cols="8" class="mt-5">
+        <b-col cols="12" lg="8" class="mt-5">
           <b-card no-body class="mt-5">
             <b-card-header header-bg-variant="dark" header-text-variant="white">
               {{ $t('auth.register.registerAnAccount') }}
