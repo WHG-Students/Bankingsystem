@@ -121,7 +121,9 @@ export const updateBalanceByAmount = async (
   try {
     await CreditAccount.update(
       {
-        balance: res.locals.creditAccount.balance + res.locals.amount,
+        balance:
+          parseInt(res.locals.creditAccount.balance) +
+          parseInt(res.locals.amount),
       },
       {
         where: {
