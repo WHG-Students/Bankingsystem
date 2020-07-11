@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: 'banksystem_mysql'
+    restart: always
+    env_file:
+      - .env
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_PORT: ${MYSQL_PORT}
+    expose:
+      - '3500'
+    ports:
+      - '3500:3306'
+    volumes:
+      - mysql:/var/lib/mysql
+    networks:
+      - banksystem
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    ports:
+      - '3501:3501'
+
+  panel:
+    build:
+      context: .
+      dockerfile: Dockerfile.panel
+    ports:
+      - '3502:80'
+
+networks:
+  banksystem:
+
+volumes:
+  mysql:
+    driver: local
