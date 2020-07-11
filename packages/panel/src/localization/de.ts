@@ -81,4 +81,32 @@ export const de = {
     title: 'Grund',
     amount: 'Betrag',
   },
+  statistics: {
+    statistics: 'Statistiken',
+    amount: 'Anzahl',
+    lastCreated: 'Zuletzt Erstellt',
+    firstCreated: 'Erstes Erstellt',
+  },
+  transactions: {
+    transaction: 'Transaktion',
+    add: 'Erstelle eine Transaktion',
+    addReceiver: 'Füge die Informationen ein',
+    receiver: 'Email des Empfängers',
+    amount: 'Betrag',
+    title: 'Titel',
+    response: {
+      success: 'Die Transaktion wurde erfolgreich erstellt!',
+      badRequest:
+        'Du hast nicht genügend Guthaben um diese Transaktion durchzuführen.',
+      notFound: 'Ein Empfänger mit dieser Email Addresse existiert nicht.',
+      internalServerError:
+        'Ein Serverfehler ist aufgetreten! Bitte versuche es später erneut.',
+      error:
+        'Ein unbekannter Fehler ist aufgetreten! Bitte überprüfe deine Eingaben.',
+      requiredNotFulfilled: 'Du hast keinen Empfänger oder Betrag ausgewählt',
+      tooLongInputs: 'Deine Eingaben waren zu lang, bitte überprüfe diese.',
+      noValidEmailSet:
+        'Du hast keine Gültige Email Addresse angegeben als Empfänger',
+    },
+  },
 };
