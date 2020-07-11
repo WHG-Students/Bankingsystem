@@ -2,7 +2,7 @@
   <div>
     <b-container class="relative">
       <b-row class="d-flex justify-content-center">
-        <b-col cols="8">
+        <b-col cols="12" md="8">
           <div class="alert-container mt-2">
             <b-alert
               :show="alert.countdown"
@@ -21,7 +21,7 @@
             </b-alert>
           </div>
         </b-col>
-        <b-col cols="8" class="mt-5">
+        <b-col cols="12" md="8" class="mt-5">
           <b-card no-body class="mt-5">
             <b-card-header header-bg-variant="dark" header-text-variant="white">
               {{ $t('auth.login.loginAccount') }}
@@ -68,7 +68,7 @@
                 {{ $t('auth.login.dontHaveAnAccount') }}
 
                 <router-link to="/auth/register">
-                  {{ $t('auth.login.login') }}
+                  {{ $t('auth.login.register') }}
                 </router-link>
               </p>
             </b-card-footer>
@@ -136,3 +136,17 @@ export default mixins(alertMixin, loginMixin).extend({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+.relative {
+  position: relative;
+
+  .alert-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+  }
+}
+</style>

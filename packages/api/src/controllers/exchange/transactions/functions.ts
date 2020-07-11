@@ -6,7 +6,6 @@ import {HTTPError, HTTPStatus} from '../../../helpers/httpErrors';
 import {Transaction} from '../../../models/transaction';
 import {CreditAccountTransaction} from '../../../models/relations/creditAccountToTransaction';
 import {loadCreditAccountByEmail} from '../shared';
-import {logger} from '../../../lib/winston';
 
 export const loadReceiver = async (
   {body}: Request,
@@ -93,7 +92,7 @@ export const updateBalances = async (
     // removing amount from sender's balance
     await CreditAccount.update(
       {
-        balance: +res.locals.creditAccount.balance - body.amount,
+        balance: +res.locals.creditAccount.balance - parseInt(body.amount),
       },
       {
         where: {
@@ -105,7 +104,8 @@ export const updateBalances = async (
     // adding amount to receiver's balance
     await CreditAccount.update(
       {
-        balance: +res.locals.receiverCreditAccount.balance + body.amount,
+        balance:
+          +res.locals.receiverCreditAccount.balance + parseInt(body.amount),
       },
       {
         where: {
