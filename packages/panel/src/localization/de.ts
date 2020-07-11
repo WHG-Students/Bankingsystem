@@ -95,6 +95,9 @@ export const de = {
     amount: 'Betrag',
     title: 'Titel',
     response: {
+      withdrawalSuccess: 'Du hast erfolgreich eine Abhebung getätigt!',
+      withdrawalBadRequest: 'Du hast dafür nicht genug Guthaben!',
+      depositSuccess: 'Du hast erfolgreich Guthaben eingezahlt!',
       success: 'Die Transaktion wurde erfolgreich erstellt!',
       badRequest:
         'Du hast nicht genügend Guthaben um diese Transaktion durchzuführen.',
@@ -103,10 +106,16 @@ export const de = {
         'Ein Serverfehler ist aufgetreten! Bitte versuche es später erneut.',
       error:
         'Ein unbekannter Fehler ist aufgetreten! Bitte überprüfe deine Eingaben.',
-      requiredNotFulfilled: 'Du hast keinen Empfänger oder Betrag ausgewählt',
+      requiredNotFulfilled: 'Du hast keine Eingaben getätigt.',
       tooLongInputs: 'Deine Eingaben waren zu lang, bitte überprüfe diese.',
       noValidEmailSet:
         'Du hast keine Gültige Email Addresse angegeben als Empfänger',
     },
+  },
+  balanceChanges: {
+    addWithdrawal: 'Hier kannst du dein Guthaben abheben',
+    withdrawal: 'Abhebung',
+    addDeposit: 'Hier kannst du dein Guthaben aufladen',
+    deposit: 'Einzahlung',
   },
 };

@@ -2,6 +2,8 @@ import Vue from 'vue';
 import VueRouter, {RouteConfig} from 'vue-router';
 import Home from '../views/Index.vue';
 import Transactions from '../views/Transactions.vue';
+import Deposits from '../views/Deposits.vue';
+import Withdrawals from '../views/Withdrawals.vue';
 import Register from '../views/auth/Register.vue';
 import Login from '../views/auth/Login.vue';
 
@@ -21,6 +23,16 @@ const routes: RouteConfig[] = [
     path: '/transactions',
     name: 'Transactions',
     component: Transactions,
+  },
+  {
+    path: '/deposits',
+    name: 'Deposits',
+    component: Deposits,
+  },
+  {
+    path: '/withdrawals',
+    name: 'Withdrawals',
+    component: Withdrawals,
   },
   {
     path: '/auth',
