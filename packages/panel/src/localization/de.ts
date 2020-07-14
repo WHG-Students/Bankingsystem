@@ -55,6 +55,7 @@ export const de = {
       register: 'Registrieren',
       dontHaveAnAccount: 'Hast du noch keinen Account?',
       response: {
+        loginSuccess: 'Du hast dich erfolgreich eingeloggt! Du wirst demnächst weitergeleitet!',
         unauthorized: 'Dein angegebenes Passwort ist falsch.',
         notFound:
           'Es konnte kein Nutzer unter dieser Email Addresse gefunden werden.',
