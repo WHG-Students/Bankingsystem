@@ -21,7 +21,7 @@
     "core-js": "^3.6.5",
     "jsonwebtoken": "^8.5.1",
     "logform": "^2.2.0",
-    "moment": "^2.26.0",
+    "moment": "^2.29.2",
     "portal-vue": "^2.1.7",
     "validator": "^13.1.1",
     "vue": "^2.6.11",
