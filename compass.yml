@@ -1,0 +1,23 @@
+name: Bankingsystem
+id: ari:cloud:compass:e0a892fa-d5e9-4b1c-a95c-5f92b66a1423:component/eb6c48be-0adf-4c70-af96-309e16c7bc27/b85f7f23-d15c-4a74-b5c8-d54e00f1ee40
+description: null
+configVersion: 1
+typeId: SERVICE
+ownerId: null
+fields:
+  tier: 4
+links:
+  - name: null
+    type: REPOSITORY
+    url: https://github.com/WHG-Students/Bankingsystem
+relationships:
+  DEPENDS_ON: []
+labels:
+  - banking
+  - javascript
+  - language:typescript
+  - node
+  - nodejs
+  - source:github
+  - typescript
+customFields: null
